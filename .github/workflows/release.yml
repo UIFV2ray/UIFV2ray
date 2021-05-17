@@ -1,0 +1,20 @@
+name: Release to github page
+on: [push]
+
+jobs:
+  setup_env:
+    name: THU
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Python
+        uses: actions/setup-python@v1
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 -m pip install requests
+          python3 ./release.py
